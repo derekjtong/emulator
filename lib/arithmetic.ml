@@ -6,9 +6,9 @@ open Helper
 let binary_addition b1 b2 =
   let rec add_lists l1 l2 carry list =
     match (l1, l2) with
-      (* Base case, carry is ignored *)
+      (* Base case. Carry is ignored *)
     | ([], []) ->  list
-      (* Non-empty list, destructure head and tail *)
+      (* Non-empty list. Destructure head and tail *)
     | (h1::t1, h2::t2) ->
       let sum = h1 + h2 + (if carry then 1 else 0) in
       let new_carry = sum >= 2 in

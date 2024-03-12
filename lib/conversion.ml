@@ -35,15 +35,15 @@ let remove_hex_prefix hex_str =
 let hex_to_bin hex_str =
   let cleaned_str = remove_hex_prefix hex_str in 
   let rec aux base2list = function
-    (* base case. if hex string is empty then return base2list *)
+    (* Base case. If hex string is empty then return base2list *)
     | [] -> base2list
-    (* recursive case. h=head, t=tail.
-        1. convert h to binary list
-        2. append result to base2list (@ symbol)
-        2. call aux with tail of hex string *)
+    (* Recursive case. h=head, t=tail.
+        1. Convert h to binary list
+        2. Append result to base2list (@ symbol)
+        2. Call aux with tail of hex string *)
     | h :: t -> aux (base2list @ hex_digit_to_bin h) t
   in
-  (* call aux; second parameter is passed implicitly due to function keyword*)
+  (* Call aux; second parameter is passed implicitly due to function keyword*)
   aux [] (List.of_seq (String.to_seq cleaned_str))
 
 
@@ -51,7 +51,7 @@ let hex_to_bin hex_str =
 let bin_to_hex base2list =
   let rec aux hex_string list = 
     match list with
-      | [] -> hex_string (* base case, return hex string *)
+      | [] -> hex_string (* Base case, return hex string *)
       | h1 :: h2 :: h3 :: h4 :: t -> (* Non-empty list, process 4 bits at a time *)
           let digit = h1 lsl 3 + h2 lsl 2 + h3 lsl 1 + h4 in
           (* %X to convert to hexadecimal. 
@@ -66,9 +66,9 @@ let bin_to_hex base2list =
 (* Converts an signed integer to a base 2 list *)
 let int_to_bin inputInt =
   let rec to_binary n list =
-    (* Base case *)
+    (* Base case. No more to add, return list *)
     if n = 0 then list
-    (* Recursive case, prepend *)
+    (* Recursive case. Prepend to list *)
     else to_binary (n / 2) ((n mod 2) :: list)
   in
   let binary = to_binary (abs inputInt) [] in
@@ -87,18 +87,18 @@ let base2list_to_int base2list =
   match base2list with
   | [] -> failwith "List is empty"
   | h::_ when h = 0 -> (* Positive number, convert directly to int *)
-    let rec to_int list acc =
+    let rec to_int list resultInt =
       match list with
-      | [] -> acc
-      | hd::tl -> to_int tl (acc * 2 + hd)
+      | [] -> resultInt
+      | hd::tl -> to_int tl (resultInt * 2 + hd)
     in
     to_int (List.tl base2list) 0  (* Ignore the sign bit since the number is positive *)
   | _ -> (* Negative number: two's complement, convert to int, and then negate the int *)
     let positive_list = twos_complement base2list in
-    let rec to_int list acc =
+    let rec to_int list resultInt =
       match list with
-      | [] -> acc
-      | hd::tl -> to_int tl (acc * 2 + hd)
+      | [] -> resultInt
+      | hd::tl -> to_int tl (resultInt * 2 + hd)
     in
     (* Convert the two's complement list to int and then apply negative sign *)
     -1 * (to_int (List.tl positive_list) 0)  

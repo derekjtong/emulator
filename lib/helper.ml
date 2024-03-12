@@ -2,10 +2,10 @@
 let twos_complement list =
   (* Invert list *)
   let inverted = List.map (fun bit -> if bit = 0 then 1 else 0) list in
-  (* Define add*)
+  (* Define add *)
   let rec add_one list carry =
     match list with
-      (* Base case, empty list*)
+      (* Base case, empty list *)
     | [] -> if carry then [1] else []
       (* Non-empty list, destructure head and tail*)
     | h::t -> if carry then
