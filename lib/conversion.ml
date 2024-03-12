@@ -44,7 +44,8 @@ let hex_to_bin hex_str =
     | h :: t -> aux (base2list @ hex_digit_to_bin h) t
   in
   (* Call aux; second parameter is passed implicitly due to function keyword*)
-  aux [] (List.of_seq (String.to_seq cleaned_str))
+  let binary = aux [] (List.of_seq (String.to_seq cleaned_str)) in
+  normalize_to_8_bits binary
 
 
 (* Converts a base 2 list to a hexadecimal string *)
@@ -72,14 +73,9 @@ let int_to_bin inputInt =
     else to_binary (n / 2) ((n mod 2) :: list)
   in
   let binary = to_binary (abs inputInt) [] in
-  (* Ensure it has 8 bits *)
-  let rec pad_to_eight list =
-    if List.length list = 8 then list
-    else pad_to_eight (0 :: list)  (* Prepend zeros until the list is 8 bits long *)
-  in
-  let padded_binary = pad_to_eight binary in
+  let normalized_binary = normalize_to_8_bits binary in
   (* If the input integer was negative, convert to two's complement *)
-  if inputInt >= 0 then padded_binary else twos_complement padded_binary
+  if inputInt >= 0 then normalized_binary else twos_complement normalized_binary
 
 
 (* Converts a base 2 list to a signed integer *)
