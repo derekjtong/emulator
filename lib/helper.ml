@@ -20,7 +20,6 @@ let twos_complement list =
 
 
 (* Print binary list *)
-
 let print_binary_list base2list =
   List.iter (Printf.printf "%d") base2list;
   print_newline ()
