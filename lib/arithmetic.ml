@@ -1,5 +1,7 @@
 open Helper
 
+(* All operations are 8 bit signed integers, -128 to 127 *)
+
 (* ADD operation on 8-bit signed integer base 2 list *)
 let binary_addition b1 b2 =
   let rec add_lists l1 l2 carry list =
