@@ -4,6 +4,7 @@ open Arithmetic
 open Conversion
 open Logical
 
+(* Example usage *)
 let () =
   (* Logical operations *)
   let not_a5 = bitwise_not (hex_to_bin "0xA5") in
