@@ -23,3 +23,11 @@ let twos_complement list =
 let print_binary_list base2list =
   List.iter (Printf.printf "%d") base2list;
   print_newline ()
+
+
+(* Normalize base 2 list to 8 bits, truncating or padding as necessary *)
+let rec normalize_to_8_bits list =
+  let len = List.length list in
+  if len > 8 then normalize_to_8_bits (List.tl list) (* Drop the extra MSB if length is more than 8 bits *)
+  else if len < 8 then normalize_to_8_bits (0 :: list) (* Pad with 0's if less than 8 bits *)
+  else list
