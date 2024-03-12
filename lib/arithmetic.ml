@@ -2,10 +2,6 @@ open Helper
 
 (* ADD operation on 8-bit signed integer base 2 list *)
 let binary_addition b1 b2 =
-  (* print_endline "FUNCTION Adding binary numbers ";
-  print_binary_list b1;
-  print_binary_list b2;
-  print_endline "FUNCTION end "; *)
   let rec add_lists l1 l2 carry list =
     match (l1, l2) with
       (* Base case, carry is ignored *)
